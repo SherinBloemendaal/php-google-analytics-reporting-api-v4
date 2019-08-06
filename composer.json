@@ -1,7 +1,7 @@
 {
   "name": "sherin/google-analytics",
   "description": "Google analytics reporting api v4 wrapper (supports batchGet, segments, filters and more)",
-  "type": "project",
+  "type": "library",
   "license": "Apache-2.0",
   "authors": [
     {
