@@ -1,0 +1,17 @@
+{
+  "name": "sherin/google-analytics",
+  "description": "Google analytics reporting api v4 wrapper (supports batchGet, segments, filters and more)",
+  "type": "project",
+  "license": "Apache",
+  "authors": [
+    {
+      "name": "Sherin",
+      "email": "sherin@bloemendaal.dev"
+    }
+  ],
+  "require": {
+    "google/apiclient": "^2.0",
+    "doctrine/collections": "^1.6",
+    "friendsofphp/php-cs-fixer": "^2.15"
+  }
+}
