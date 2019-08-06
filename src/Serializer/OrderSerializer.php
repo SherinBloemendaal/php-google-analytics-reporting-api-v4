@@ -3,8 +3,8 @@
 
 namespace sherin\google\analytics\Serializer;
 
-use Order\Order;
-use Order\OrderCollection;
+use Google_Service_AnalyticsReporting_OrderBy;
+use sherin\google\analytics\Order\OrderCollection;
 
 class OrderSerializer
 {
@@ -17,7 +17,7 @@ class OrderSerializer
         $orders = $orderCollection->getOrders()->toArray();
         $googleOrders = [];
         foreach ($orders as $order) {
-            $googleOrder = new \Google_Service_AnalyticsReporting_OrderBy();
+            $googleOrder = new Google_Service_AnalyticsReporting_OrderBy();
             $googleOrder->setFieldName($order->getName());
             $googleOrder->setOrderType($order->getOrderBy());
             $googleOrder->setSortOrder($order->getDirection());

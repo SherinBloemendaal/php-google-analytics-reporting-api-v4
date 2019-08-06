@@ -13,9 +13,9 @@ class DimensionFilterCollection
     private $filters;
     private $operator;
 
-    public function __construct(ArrayCollection $filters = null)
+    public function __construct()
     {
-        $this->filters = $filters;
+        $this->filters = new ArrayCollection();
         $this->operator = self:: AND;
     }
 

@@ -8,54 +8,24 @@ namespace sherin\google\analytics\Authentication;
  */
 class Credentials
 {
-    /**
-     * @var
-     */
     private $type;
 
-    /**
-     * @var
-     */
     private $projectId;
 
-    /**
-     * @var
-     */
     private $privateKeyId;
 
-    /**
-     * @var
-     */
     private $privateKey;
 
-    /**
-     * @var
-     */
     private $clientEmail;
 
-    /**
-     * @var
-     */
     private $clientId;
 
-    /**
-     * @var
-     */
     private $authUri;
 
-    /**
-     * @var
-     */
     private $tokenUri;
 
-    /**
-     * @var
-     */
     private $authProviderCertUrl;
 
-    /**
-     * @var
-     */
     private $clientCertUrl;
 
     /**

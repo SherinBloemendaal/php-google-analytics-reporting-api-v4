@@ -2,10 +2,7 @@
 
 namespace sherin\google\analytics;
 
-use Authentication\Client;
-use Dimension\Dimension;
-use Filter\DimensionFilter;
-use Query\QueryBuilder;
+use sherin\google\analytics\Authentication\Client;
 
 require_once __DIR__ . '../vendor/autoload.php';
 

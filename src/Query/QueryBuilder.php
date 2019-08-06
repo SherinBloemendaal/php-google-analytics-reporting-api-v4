@@ -3,27 +3,25 @@
 namespace sherin\google\analytics\Query;
 
 use DateTime;
-use Dimension\Dimension;
-use Dimension\DimensionCollection;
-use Filter\DimensionFilterCollection;
-use Filter\Filter;
-use Filter\FilterCollection;
-use Filter\MetricFilter;
-use Filter\MetricFilterCollection;
 use Google_Service_AnalyticsReporting_ReportRequest;
-use Metric\Metric;
-use Metric\MetricCollection;
-use Order\Order;
-use Order\OrderCollection;
-use Segment\Segment;
-use Segment\SegmentCollection;
-use Serializer\DateRangeSerializer;
-use Serializer\DimensionFilterSerializer;
-use Serializer\DimensionSerializer;
-use Serializer\MetricFilterSerializer;
-use Serializer\MetricSerializer;
-use Serializer\OrderSerializer;
-use Serializer\SegmentSerializer;
+use sherin\google\analytics\Dimension\Dimension;
+use sherin\google\analytics\Dimension\DimensionCollection;
+use sherin\google\analytics\Filter\DimensionFilter;
+use sherin\google\analytics\Filter\DimensionFilterCollection;
+use sherin\google\analytics\Filter\MetricFilter;
+use sherin\google\analytics\Filter\MetricFilterCollection;
+use sherin\google\analytics\Metric\Metric;
+use sherin\google\analytics\Metric\MetricCollection;
+use sherin\google\analytics\Order\Order;
+use sherin\google\analytics\Order\OrderCollection;
+use sherin\google\analytics\Segment\SegmentCollection;
+use sherin\google\analytics\Serializer\DateRangeSerializer;
+use sherin\google\analytics\Serializer\DimensionFilterSerializer;
+use sherin\google\analytics\Serializer\DimensionSerializer;
+use sherin\google\analytics\Serializer\MetricFilterSerializer;
+use sherin\google\analytics\Serializer\MetricSerializer;
+use sherin\google\analytics\Serializer\OrderSerializer;
+use sherin\google\analytics\Serializer\SegmentSerializer;
 
 class QueryBuilder
 {
@@ -110,7 +108,7 @@ class QueryBuilder
         return $this;
     }
 
-    public function addDimensionFilter(Filter $filter)
+    public function addDimensionFilter(DimensionFilter $filter)
     {
         $this->dimensionFilters->addFilter($filter);
         return $this;

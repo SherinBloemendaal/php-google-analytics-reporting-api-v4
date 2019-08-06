@@ -8,9 +8,9 @@ use Google_Service_AnalyticsReporting_OrFiltersForSegment;
 use Google_Service_AnalyticsReporting_SegmentDefinition;
 use Google_Service_AnalyticsReporting_SegmentFilter;
 use Google_Service_AnalyticsReporting_SimpleSegment;
-use Segment\SegmentCollection;
-use Segment\SessionSegment;
-use Segment\UserSegment;
+use sherin\google\analytics\Segment\SegmentCollection;
+use sherin\google\analytics\Segment\SessionSegment;
+use sherin\google\analytics\Segment\UserSegment;
 
 class SegmentSerializer
 {

@@ -3,8 +3,8 @@
 
 namespace sherin\google\analytics\Serializer;
 
-use Metric\Metric;
-use Metric\MetricCollection;
+use sherin\google\analytics\Metric\Metric;
+use sherin\google\analytics\Metric\MetricCollection;
 
 class MetricSerializer
 {

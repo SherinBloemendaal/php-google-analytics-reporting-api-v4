@@ -3,8 +3,7 @@
 
 namespace sherin\google\analytics\Serializer;
 
-use Filter\MetricFilter;
-use Filter\MetricFilterCollection;
+use sherin\google\analytics\Filter\MetricFilterCollection;
 
 class MetricFilterSerializer
 {

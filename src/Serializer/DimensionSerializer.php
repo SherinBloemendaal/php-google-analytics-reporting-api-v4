@@ -3,8 +3,8 @@
 
 namespace sherin\google\analytics\Serializer;
 
-use Dimension\Dimension;
-use Dimension\DimensionCollection;
+use sherin\google\analytics\Dimension\Dimension;
+use sherin\google\analytics\Dimension\DimensionCollection;
 
 class DimensionSerializer
 {

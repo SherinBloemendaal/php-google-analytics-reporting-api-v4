@@ -3,10 +3,10 @@
 
 namespace sherin\google\analytics\Segment;
 
-use Filter\DimensionFilter;
-use Filter\DimensionFilterCollection;
-use Filter\MetricFilter;
-use Filter\MetricFilterCollection;
+use sherin\google\analytics\Filter\DimensionFilter;
+use sherin\google\analytics\Filter\DimensionFilterCollection;
+use sherin\google\analytics\Filter\MetricFilter;
+use sherin\google\analytics\Filter\MetricFilterCollection;
 
 class SessionSegment
 {

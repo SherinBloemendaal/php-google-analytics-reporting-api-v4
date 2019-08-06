@@ -3,6 +3,7 @@
 
 namespace sherin\google\analytics\Authentication;
 
+use Google_Client;
 use Google_Service_Analytics;
 
 class Client
@@ -23,7 +24,7 @@ class Client
             "auth_provider_x509_cert_url" => $credentials->getAuthProviderCertUrl(),
             "client_x509_cert_url" => $credentials->getClientCertUrl()
         ];
-        $this->google_client = new \Google_Client($config);
+        $this->google_client = new Google_Client($config);
         $this->google_client->addScope(Google_Service_Analytics::ANALYTICS_READONLY);
 
         $accessToken = $this->google_client->fetchAccessTokenWithAssertion()["access_token"];
@@ -32,17 +33,17 @@ class Client
     }
 
     /**
-     * @return \Google_Client
+     * @return Google_Client
      */
-    public function getGoogleClient(): \Google_Client
+    public function getGoogleClient(): Google_Client
     {
         return $this->google_client;
     }
 
     /**
-     * @param \Google_Client $google_client
+     * @param Google_Client $google_client
      */
-    public function setGoogleClient(\Google_Client $google_client)
+    public function setGoogleClient(Google_Client $google_client)
     {
         $this->google_client = $google_client;
     }

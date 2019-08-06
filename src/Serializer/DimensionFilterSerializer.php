@@ -3,14 +3,14 @@
 
 namespace sherin\google\analytics\Serializer;
 
-use Filter\DimensionFilter;
-use Filter\DimensionFilterCollection;
+use Google_Service_AnalyticsReporting_DimensionFilterClause;
+use sherin\google\analytics\Filter\DimensionFilterCollection;
 
 class DimensionFilterSerializer
 {
     public static function serialize(DimensionFilterCollection $filterCollection)
     {
-        $dimensionFilterClause = new \Google_Service_AnalyticsReporting_DimensionFilterClause();
+        $dimensionFilterClause = new Google_Service_AnalyticsReporting_DimensionFilterClause();
 
         $filters = $filterCollection->getFilters()->toArray();
 
