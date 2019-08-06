@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Serializer;
+namespace sherin\google\analytics\Serializer;
 
 use Filter\DimensionFilter;
 use Filter\DimensionFilterCollection;

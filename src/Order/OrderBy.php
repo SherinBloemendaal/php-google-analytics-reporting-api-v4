@@ -1,6 +1,6 @@
 <?php
 
-namespace Order;
+namespace sherin\google\analytics\Order;
 
 class OrderBy
 {

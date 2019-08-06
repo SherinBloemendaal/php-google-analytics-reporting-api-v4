@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Authentication;
+namespace sherin\google\analytics\Authentication;
 
 use Google_Service_Analytics;
 

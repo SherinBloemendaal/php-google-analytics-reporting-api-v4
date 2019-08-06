@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Serializer;
+namespace sherin\google\analytics\Serializer;
 
 use Metric\Metric;
 use Metric\MetricCollection;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Filter;
+namespace sherin\google\analytics\Filter;
 
 class Filter
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Query;
+namespace sherin\google\analytics\Query;
 
 use DateTime;
 use Dimension\Dimension;

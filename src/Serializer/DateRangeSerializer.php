@@ -1,6 +1,6 @@
 <?php
 
-namespace Serializer;
+namespace sherin\google\analytics\Serializer;
 
 use DateTime;
 use Google_Service_AnalyticsReporting_DateRange;

@@ -1,5 +1,6 @@
 <?php
 
+namespace sherin\google\analytics\Query;
 
 class Direction
 {

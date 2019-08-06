@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Segment;
+namespace sherin\google\analytics\Segment;
 
 use Filter\DimensionFilter;
 use Filter\DimensionFilterCollection;

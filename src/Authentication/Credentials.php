@@ -1,6 +1,6 @@
 <?php
 
-namespace Authentication;
+namespace sherin\google\analytics\Authentication;
 
 /**
  * Class Credentials

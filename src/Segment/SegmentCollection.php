@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Segment;
+namespace sherin\google\analytics\Segment;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

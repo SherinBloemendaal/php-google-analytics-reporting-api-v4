@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Serializer;
+namespace sherin\google\analytics\Serializer;
 
 use Order\Order;
 use Order\OrderCollection;

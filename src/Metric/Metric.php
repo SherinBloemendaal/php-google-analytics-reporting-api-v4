@@ -1,6 +1,6 @@
 <?php
 
-namespace Metric;
+namespace sherin\google\analytics\Metric;
 
 class Metric
 {

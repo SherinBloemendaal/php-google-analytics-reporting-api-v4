@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Order;
+namespace sherin\google\analytics\Order;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

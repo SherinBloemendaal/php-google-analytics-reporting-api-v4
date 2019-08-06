@@ -1,6 +1,6 @@
 <?php
 
-namespace Dimension;
+namespace sherin\google\analytics\Dimension;
 
 class Dimension
 {

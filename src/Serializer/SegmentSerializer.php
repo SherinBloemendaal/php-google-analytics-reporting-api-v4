@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Serializer;
+namespace sherin\google\analytics\Serializer;
 
 use Google_Service_AnalyticsReporting_DynamicSegment;
 use Google_Service_AnalyticsReporting_OrFiltersForSegment;

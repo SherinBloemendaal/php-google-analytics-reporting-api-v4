@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Filter;
+namespace sherin\google\analytics\Filter;
 
 class MetricFilter extends Filter
 {

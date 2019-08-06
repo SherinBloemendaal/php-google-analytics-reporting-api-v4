@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Filter;
+namespace sherin\google\analytics\Filter;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

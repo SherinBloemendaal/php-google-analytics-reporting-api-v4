@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Dimension;
+namespace sherin\google\analytics\Dimension;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

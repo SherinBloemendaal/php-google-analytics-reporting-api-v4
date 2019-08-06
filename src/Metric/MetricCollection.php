@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Metric;
+namespace sherin\google\analytics\Metric;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
