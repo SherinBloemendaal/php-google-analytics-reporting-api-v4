@@ -178,14 +178,7 @@ class QueryBuilder
             $googleQuery->setSegments(SegmentSerializer::serialize($this->segments));
         }
 
-        $this->query = $googleQuery;
-        return $this;
-    }
-
-    public function exec()
-    {
-        if (!$this->query) {
-            throw new \Exception("No query, use getQuery() before exec()", 500);
-        }
+        $this->query = new Query($googleQuery);
+        return $this->query;
     }
 }

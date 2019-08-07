@@ -4,7 +4,7 @@ namespace sherin\google\analytics\Request;
 
 use Google_Service_AnalyticsReporting_GetReportsRequest;
 use sherin\google\analytics\Analytics;
-use sherin\google\analytics\Query\QueryBuilder;
+use sherin\google\analytics\Query\Query;
 
 class Request
 {
@@ -14,11 +14,11 @@ class Request
     /**
      * Request constructor.
      * @param Analytics $analytics
-     * @param QueryBuilder $queryBuilder
+     * @param Query $query
      */
-    public function __construct(Analytics $analytics, QueryBuilder $queryBuilder)
+    public function __construct(Analytics $analytics, Query $query)
     {
-        $this->query = $queryBuilder;
+        $this->query = $query;
         $this->analytics = $analytics;
     }
 
@@ -27,24 +27,24 @@ class Request
         $request = new Google_Service_AnalyticsReporting_GetReportsRequest();
         //Again, they have set wrong @param annotation
         /* @phan-suppress-next-line PhanTypeMismatchArgument */
-        $request->setReportRequests([$this->query]);
+        $request->setReportRequests([$this->query->getGoogleQuery()]);
         return $this->analytics->getAnalyticsReporting()->reports->batchGet($request);
     }
 
     /**
-     * @param QueryBuilder $query
+     * @param Query $query
      * @return Request
      */
-    public function setQuery(QueryBuilder $query): self
+    public function setQuery(Query $query): self
     {
         $this->query = $query;
         return $this;
     }
 
     /**
-     * @return QueryBuilder
+     * @return Query
      */
-    public function getQuery(): QueryBuilder
+    public function getQuery(): Query
     {
         return $this->query;
     }

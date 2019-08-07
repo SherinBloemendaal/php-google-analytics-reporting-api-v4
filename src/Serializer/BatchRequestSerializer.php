@@ -14,7 +14,7 @@ class BatchRequestSerializer
          * @var Request $request
          */
         foreach ($requestChunk as $request) {
-            $queries[] = $request->getQuery();
+            $queries[] = $request->getQuery()->getGoogleQuery();
         }
 
         $batchQuery = new Google_Service_AnalyticsReporting_GetReportsRequest();
