@@ -4,6 +4,8 @@
 namespace sherin\google\analytics\Query;
 
 use Google_Service_AnalyticsReporting_ReportRequest;
+use sherin\google\analytics\Analytics;
+use sherin\google\analytics\Request\Request;
 
 class Query
 {
@@ -18,11 +20,14 @@ class Query
         $this->googleQuery = $googleQuery;
     }
 
-    public function exec()
+    public function exec(Analytics $analytics)
     {
-        if (!$this->googleQuery) {
+        if (!$this->googleQuery instanceof Google_Service_AnalyticsReporting_ReportRequest) {
             throw new \Exception("No valid query provided.", 500);
         }
+
+        $request = new Request($analytics, $this);
+        return $request->send();
     }
 
     /**
