@@ -16,27 +16,6 @@ class SegmentSerializer
 {
     public static function serialize(SegmentCollection $segmentCollection)
     {
-//        $segmentCollection->getSegments()->forAll(function ($key, $segment) {
-//
-//            $segmentDimensionFilters = $segment->getDimensionFilters()->getFilters()->forAll(
-//                function ($key, DimensionFilter $dimensionFilter) {
-//                    $googleDimensionFilter = new \Google_Service_AnalyticsReporting_SegmentDimensionFilter();
-//                    $googleDimensionFilter->setDimensionName($dimensionFilter->getKey());
-//                    $googleDimensionFilter->setOperator($dimensionFilter->getOperator());
-//                    $googleDimensionFilter->setExpressions($dimensionFilter->getValue());
-//                    return $googleDimensionFilter;
-//                });
-//
-//            $segmentMetricFilter = $segment->getMetricsFilters()->getFilters()->forAll(
-//                function ($key, MetricFilter $metricFilter) {
-//                    $googleMetricFilter = new \Google_Service_AnalyticsReporting_SegmentMetricFilter();
-//                    $googleMetricFilter->setMetricName($metricFilter->getKey());
-//                    $googleMetricFilter->setOperator($metricFilter->getOperator());
-//                    $googleMetricFilter->setComparisonValue($metricFilter->getValue());
-//                    return $googleMetricFilter;
-//                });
-//        });
-
         $segments = $segmentCollection->getSegments()->toArray();
         $googleSegments = [];
         /** @var SessionSegment|UserSegment $segment */
@@ -56,6 +35,8 @@ class SegmentSerializer
 
                 if ($segmentCollection->getOperator() === SegmentCollection::AND) {
                     $orFiltersForSegment = new Google_Service_AnalyticsReporting_OrFiltersForSegment();
+                    // Suppress because wrong @param in the Google api
+                    /* @phan-suppress-next-line PhanTypeMismatchArgument */
                     $orFiltersForSegment->setSegmentFilterClauses([$segmentFilterClause]);
 
                     $googleDimensionFilters[] = $orFiltersForSegment;
@@ -66,22 +47,17 @@ class SegmentSerializer
                 }
             }
 
-//            $googleMetricFilters = [];
-//            foreach ($metricFilters as $metricFilter) {
-//                $googleMetricFilter = new \Google_Service_AnalyticsReporting_SegmentMetricFilter();
-//                $googleMetricFilter->setMetricName($metricFilter->getKey());
-//                $googleMetricFilter->setOperator($metricFilter->getOperator());
-//                $googleMetricFilter->setComparisonValue($metricFilter->getValue());
-//                $googleMetricFilters[] = $googleMetricFilter;
-//            }
-
             if ($segmentCollection->getOperator() === SegmentCollection::OR) {
                 $orFiltersForSegment = new Google_Service_AnalyticsReporting_OrFiltersForSegment();
+                // Suppress because wrong @param in the Google api
+                /* @phan-suppress-next-line PhanTypeMismatchArgument */
                 $orFiltersForSegment->setSegmentFilterClauses($googleDimensionFilters);
             }
 
             // Create the Simple Segment.
             $simpleSegment = new Google_Service_AnalyticsReporting_SimpleSegment();
+            // Suppress because wrong @param in the Google api
+            /* @phan-suppress-next-line PhanTypeMismatchArgument */
             $simpleSegment->setOrFiltersForSegment($googleDimensionFilters);
 
             // Create the Segment Filters.
@@ -91,6 +67,8 @@ class SegmentSerializer
 
             // Create the Segment Definition.
             $segmentDefinition = new Google_Service_AnalyticsReporting_SegmentDefinition();
+            // Suppress because wrong @param in the Google api
+            /* @phan-suppress-next-line PhanTypeMismatchArgument */
             $segmentDefinition->setSegmentFilters([$segmentFilter]);
 
             // Create the Dynamic Segment.

@@ -25,9 +25,10 @@ return [
     // your application should be included in this list.
     'directory_list' => [
         'src',
+        'vendor'
     ],
 
-    'processes' => 6,
+    'processes' => 1,
 
     // A directory list that defines files that will be excluded
     // from static analysis, but whose class and method

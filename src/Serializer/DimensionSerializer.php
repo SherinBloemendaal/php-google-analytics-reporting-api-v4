@@ -3,7 +3,6 @@
 
 namespace sherin\google\analytics\Serializer;
 
-use sherin\google\analytics\Dimension\Dimension;
 use sherin\google\analytics\Dimension\DimensionCollection;
 
 class DimensionSerializer
@@ -14,10 +13,13 @@ class DimensionSerializer
      */
     public static function serialize(DimensionCollection $dimensionCollection): array
     {
-        return $dimensionCollection->getDimensions()->forAll(function ($key, Dimension $dimension) {
+        $dimensions = $dimensionCollection->getDimensions()->toArray();
+        $googleDimensions = [];
+        foreach ($dimensions as $dimension) {
             $googleDimension = new \Google_Service_AnalyticsReporting_Dimension();
             $googleDimension->setName($dimension->getDimension());
-            return $googleDimension;
-        });
+            $googleDimensions[] = $googleDimension;
+        }
+        return $googleDimensions;
     }
 }

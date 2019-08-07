@@ -3,7 +3,6 @@
 
 namespace sherin\google\analytics\Serializer;
 
-use sherin\google\analytics\Metric\Metric;
 use sherin\google\analytics\Metric\MetricCollection;
 
 class MetricSerializer
@@ -14,11 +13,14 @@ class MetricSerializer
      */
     public static function serialize(MetricCollection $metricCollection): array
     {
-        return $metricCollection->getMetrics()->forAll(function ($key, Metric $metric) {
+        $metrics = $metricCollection->getMetrics()->toArray();
+        $googleMetrics = [];
+        foreach ($metrics as $metric) {
             $googleMetric = new \Google_Service_AnalyticsReporting_Metric();
             $googleMetric->setAlias($metric->getName());
             $googleMetric->setExpression($metric->getMetric());
-            return $googleMetric;
-        });
+            $googleMetrics[] = $googleMetric;
+        }
+        return $googleMetrics;
     }
 }

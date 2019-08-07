@@ -22,17 +22,10 @@ class MetricFilterSerializer
             $googleFilters[] = $googleFilter;
         }
 
+        // Suppress because wrong @param in the Google api
+        /* @phan-suppress-next-line PhanTypeMismatchArgument */
         $metricFilterClause->setFilters($googleFilters);
         $metricFilterClause->setOperator($filterCollection->getOperator());
         return $metricFilterClause;
-
-//        $filters = $filterCollection->getFilters()->forAll(
-//            function ($key, MetricFilter $filter) {
-//                $googleFilter = new \Google_Service_AnalyticsReporting_MetricFilter();
-//                $googleFilter->setMetricName($filter->getKey());
-//                $googleFilter->setOperator($filter->getOperator());
-//                $googleFilter->setComparisonValue($filter->getValue());
-//                return $googleFilter;
-//            });
     }
 }

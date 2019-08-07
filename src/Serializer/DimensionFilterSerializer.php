@@ -23,16 +23,10 @@ class DimensionFilterSerializer
             $googleFilters[] = $googleFilter;
         }
 
+        // Suppress because wrong @param in the Google api
+        /* @phan-suppress-next-line PhanTypeMismatchArgument */
         $dimensionFilterClause->setFilters($filters);
         $dimensionFilterClause->setOperator($filterCollection->getOperator());
         return $dimensionFilterClause;
-//        $filters = $filterCollection->getFilters()->forAll(
-//            function ($key, DimensionFilter $filter) {
-//                $googleFilter = new \Google_Service_AnalyticsReporting_DimensionFilter();
-//                $googleFilter->setDimensionName($filter->getKey());
-//                $googleFilter->setOperator($filter->getOperator());
-//                $googleFilter->setExpressions($filter->getValue());
-//                return $googleFilter;
-//            });
     }
 }

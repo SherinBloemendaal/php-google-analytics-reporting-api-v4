@@ -156,8 +156,14 @@ class QueryBuilder
         $googleQuery = new Google_Service_AnalyticsReporting_ReportRequest();
         $googleQuery->setViewId((String)$this->viewId);
         $googleQuery->setDateRanges(DateRangeSerializer::serialize($this->startDate, $this->endDate));
+        // Suppress because wrong @param in the Google api
+        /* @phan-suppress-next-line PhanTypeMismatchArgument */
         $googleQuery->setMetrics(MetricSerializer::serialize($this->metrics));
+        // Suppress because wrong @param in the Google api
+        /* @phan-suppress-next-line PhanTypeMismatchArgument */
         $googleQuery->setDimensions(DimensionSerializer::serialize($this->dimensions));
+        // Suppress because wrong @param in the Google api
+        /* @phan-suppress-next-line PhanTypeMismatchArgument */
         $googleQuery->setOrderBys(OrderSerializer::serialize($this->orderBys));
 
         if (!empty($this->dimensionFilters)) {
