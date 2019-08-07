@@ -74,7 +74,7 @@ class Credentials
 
         // Validate the given config with the required parameters (checks if given parameters are valid)
         foreach ($credentialsConfig as $key => $value) {
-            if (!isset($required[$key])) {
+            if (!in_array($key, $required)) {
                 throw new Exception("Unknown array key {$key} used in the config, remove it.");
             }
         }
