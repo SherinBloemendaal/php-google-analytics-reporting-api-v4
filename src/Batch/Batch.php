@@ -3,6 +3,7 @@ namespace sherin\google\analytics\Batch;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use sherin\google\analytics\Analytics;
+use sherin\google\analytics\Request\Request;
 use sherin\google\analytics\Serializer\BatchRequestSerializer;
 
 class Batch
@@ -26,15 +27,17 @@ class Batch
 
         $responses = [];
         foreach ($requestChunk as $chunk) {
-            $responses[] = $this->analytics->getAnalyticsReporting()->reports->batchGet(BatchRequestSerializer::serialize($chunk));
+            $response = $this->analytics->getAnalyticsReporting()->reports->batchGet(BatchRequestSerializer::serialize($chunk));
+            array_merge($responses,  $response);
         }
 
         return $responses;
     }
 
-    public function addRequest($request)
+    public function addRequest(Request $request)
     {
         $this->requests->add($request);
+        return $this;
     }
 
     /**

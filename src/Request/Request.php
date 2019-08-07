@@ -1,6 +1,6 @@
 <?php
 
-namespace sherin\google\analytics\Batch;
+namespace sherin\google\analytics\Request;
 
 use Google_Service_AnalyticsReporting_GetReportsRequest;
 use sherin\google\analytics\Analytics;

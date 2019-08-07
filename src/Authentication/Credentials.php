@@ -2,6 +2,8 @@
 
 namespace sherin\google\analytics\Authentication;
 
+use Exception;
+
 /**
  * Class Credentials
  * @package Authentication
@@ -41,7 +43,7 @@ class Credentials
      * @param String $authProviderCertUrl
      * @param String $clientCertUrl
      */
-    public function __construct(String $type, String $projectId, String $privateKeyId, String $privateKey, String $clientEmail, String $clientId, String $authUri, String $tokenUri, String $authProviderCertUrl, String $clientCertUrl)
+    public function __construct(String $type = "", String $projectId = "", String $privateKeyId = "", String $privateKey = "", String $clientEmail = "", String $clientId = "", String $authUri = "", String $tokenUri = "", String $authProviderCertUrl = "", String $clientCertUrl = "")
     {
         $this->type = $type;
         $this->projectId = $projectId;
@@ -53,6 +55,38 @@ class Credentials
         $this->tokenUri = $tokenUri;
         $this->authProviderCertUrl = $authProviderCertUrl;
         $this->clientCertUrl = $clientCertUrl;
+    }
+
+    public function setFromArray(array $credentialsConfig)
+    {
+        $required = [
+            "type",
+            "project_id",
+            "private_key_id",
+            "private_key",
+            "client_email",
+            "client_id",
+            "auth_uri",
+            "token_uri",
+            "auth_provider_x509_cert_url",
+            "client_x509_cert_url",
+        ];
+
+        // Validate the given config with the required parameters (checks if given parameters are valid)
+        foreach ($credentialsConfig as $key => $value) {
+            if (!isset($required[$key])) {
+                throw new Exception("Unknown array key {$key} used in the config, remove it.");
+            }
+        }
+
+        // Checks if the required parameters are inside the credentials config
+        foreach ($required as $requiredKey) {
+            //If the config contains unknown
+            if (!array_key_exists($requiredKey, $credentialsConfig)) {
+                throw new Exception("Missing array key {$requiredKey} in Credentials->setFromArray() function");
+            }
+            $this->$requiredKey = $credentialsConfig[$requiredKey];
+        }
     }
 
     /**
