@@ -28,9 +28,7 @@ class Request
         //Again, they have set wrong @param annotation
         /* @phan-suppress-next-line PhanTypeMismatchArgument */
         $request->setReportRequests([$this->query]);
-        //Again, they have set wrong @param annotation
-        /* @phan-suppress-next-line PhanTypeMismatchArgument */
-        return $this->analytics->getAnalyticsReporting()->reports->batchGet([$request]);
+        return $this->analytics->getAnalyticsReporting()->reports->batchGet($request);
     }
 
     /**
