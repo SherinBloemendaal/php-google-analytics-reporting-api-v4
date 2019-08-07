@@ -24,7 +24,8 @@ class Client
             "auth_provider_x509_cert_url" => $credentials->getAuthProviderCertUrl(),
             "client_x509_cert_url" => $credentials->getClientCertUrl()
         ];
-        $this->google_client = new Google_Client($config);
+        $this->google_client = new Google_Client();
+        $this->google_client->setAuthConfig($config);
         $this->google_client->addScope(Google_Service_Analytics::ANALYTICS_READONLY);
 
         $accessToken = $this->google_client->fetchAccessTokenWithAssertion()["access_token"];
