@@ -85,8 +85,18 @@ class Credentials
             if (!array_key_exists($requiredKey, $credentialsConfig)) {
                 throw new Exception("Missing array key {$requiredKey} in Credentials->setFromArray() function");
             }
-            $this->$requiredKey = $credentialsConfig[$requiredKey];
         }
+
+        $this->type = $credentialsConfig["type"];
+        $this->projectId = $credentialsConfig["project_id"];
+        $this->privateKeyId = $credentialsConfig["private_key_id"];
+        $this->privateKey = $credentialsConfig["private_key"];
+        $this->clientEmail = $credentialsConfig["client_email"];
+        $this->clientId = $credentialsConfig["client_id"];
+        $this->authUri = $credentialsConfig["auth_uri"];
+        $this->tokenUri = $credentialsConfig["token_uri"];
+        $this->authProviderCertUrl = $credentialsConfig["auth_provider_x509_cert_url"];
+        $this->clientCertUrl = $credentialsConfig["client_x509_cert_url"];
     }
 
     /**
