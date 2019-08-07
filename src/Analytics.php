@@ -5,8 +5,6 @@ namespace sherin\google\analytics;
 use Google_Service_AnalyticsReporting;
 use sherin\google\analytics\Authentication\Client;
 
-require_once __DIR__ . '../vendor/autoload.php';
-
 class Analytics
 {
     private $client;
