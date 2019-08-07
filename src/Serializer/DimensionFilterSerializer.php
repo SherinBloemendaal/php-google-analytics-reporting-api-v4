@@ -8,7 +8,7 @@ use sherin\google\analytics\Filter\DimensionFilterCollection;
 
 class DimensionFilterSerializer
 {
-    public static function serialize(DimensionFilterCollection $filterCollection)
+    public static function deserialize(DimensionFilterCollection $filterCollection)
     {
         $dimensionFilterClause = new Google_Service_AnalyticsReporting_DimensionFilterClause();
 

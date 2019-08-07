@@ -7,7 +7,7 @@ use Google_Service_AnalyticsReporting_GetReportsRequest;
 
 class BatchRequestSerializer
 {
-    public static function serialize(array $requestChunk): Google_Service_AnalyticsReporting_GetReportsRequest
+    public static function deserialize(array $requestChunk): Google_Service_AnalyticsReporting_GetReportsRequest
     {
         $queries = [];
         /**

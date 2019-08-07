@@ -4,6 +4,7 @@ namespace sherin\google\analytics\Batch;
 use Doctrine\Common\Collections\ArrayCollection;
 use sherin\google\analytics\Analytics;
 use sherin\google\analytics\Request\Request;
+use sherin\google\analytics\Response\ResponseCollection;
 use sherin\google\analytics\Serializer\BatchRequestSerializer;
 use sherin\google\analytics\Serializer\ResponseSerializer;
 
@@ -22,18 +23,19 @@ class Batch
         $this->analytics = $analytics;
     }
 
-    public function send(): ArrayCollection
+    public function send(): ResponseCollection
     {
+        //TODO customizable chunksize
         $requestChunk = array_chunk($this->requests->toArray(), 5);
 
         $responses = [];
         foreach ($requestChunk as $chunk) {
-            $response = $this->analytics->getAnalyticsReporting()->reports->batchGet(BatchRequestSerializer::serialize($chunk));
+            $response = $this->analytics->getAnalyticsReporting()->reports->batchGet(BatchRequestSerializer::deserialize($chunk));
             /* @phan-suppress-next-line PhanTypeMismatchArgumentInternal */ //Because google returns a array
-            array_merge($responses, ResponseSerializer::serialize($response->getReports()));
+            array_merge($responses, ResponseSerializer::deserialize($response->getReports()));
         }
 
-        return new ArrayCollection($responses);
+        return new ResponseCollection(new ArrayCollection($responses));
     }
 
     public function addRequest(Request $request)

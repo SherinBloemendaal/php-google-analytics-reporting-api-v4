@@ -7,7 +7,7 @@ use sherin\google\analytics\Filter\MetricFilterCollection;
 
 class MetricFilterSerializer
 {
-    public static function serialize(MetricFilterCollection $filterCollection)
+    public static function deserialize(MetricFilterCollection $filterCollection)
     {
         $metricFilterClause = new \Google_Service_AnalyticsReporting_MetricFilterClause();
         $filters = $filterCollection->getFilters()->toArray();

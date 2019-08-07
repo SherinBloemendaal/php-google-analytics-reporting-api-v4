@@ -30,7 +30,7 @@ class Response
     }
 
     /**
-     * @param ArrayCollection $analytic
+     * @param ArrayCollection $analytics
      */
     public function setAnalytic(ArrayCollection $analytics)
     {

@@ -155,27 +155,27 @@ class QueryBuilder
     {
         $googleQuery = new Google_Service_AnalyticsReporting_ReportRequest();
         $googleQuery->setViewId((String)$this->viewId);
-        $googleQuery->setDateRanges(DateRangeSerializer::serialize($this->startDate, $this->endDate));
+        $googleQuery->setDateRanges(DateRangeSerializer::deserialize($this->startDate, $this->endDate));
         // Suppress because wrong @param in the Google api
         /* @phan-suppress-next-line PhanTypeMismatchArgument */
-        $googleQuery->setMetrics(MetricSerializer::serialize($this->metrics));
+        $googleQuery->setMetrics(MetricSerializer::deserialize($this->metrics));
         // Suppress because wrong @param in the Google api
         /* @phan-suppress-next-line PhanTypeMismatchArgument */
-        $googleQuery->setDimensions(DimensionSerializer::serialize($this->dimensions));
+        $googleQuery->setDimensions(DimensionSerializer::deserialize($this->dimensions));
         // Suppress because wrong @param in the Google api
         /* @phan-suppress-next-line PhanTypeMismatchArgument */
-        $googleQuery->setOrderBys(OrderSerializer::serialize($this->orderBys));
+        $googleQuery->setOrderBys(OrderSerializer::deserialize($this->orderBys));
 
         if (!empty($this->dimensionFilters)) {
-            $googleQuery->setDimensionFilterClauses(DimensionFilterSerializer::serialize($this->dimensionFilters));
+            $googleQuery->setDimensionFilterClauses(DimensionFilterSerializer::deserialize($this->dimensionFilters));
         }
 
         if (!empty($this->metricFilters)) {
-            $googleQuery->setMetricFilterClauses(MetricFilterSerializer::serialize($this->metricFilters));
+            $googleQuery->setMetricFilterClauses(MetricFilterSerializer::deserialize($this->metricFilters));
         }
 
         if (!empty($this->segments)) {
-            $googleQuery->setSegments(SegmentSerializer::serialize($this->segments));
+            $googleQuery->setSegments(SegmentSerializer::deserialize($this->segments));
         }
 
         $this->query = new Query($googleQuery);

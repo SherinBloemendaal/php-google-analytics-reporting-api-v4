@@ -12,7 +12,7 @@ class DateRangeSerializer
      * @param DateTime $endDate
      * @return Google_Service_AnalyticsReporting_DateRange
      */
-    public static function serialize(DateTime $startDate, DateTime $endDate): Google_Service_AnalyticsReporting_DateRange
+    public static function deserialize(DateTime $startDate, DateTime $endDate): Google_Service_AnalyticsReporting_DateRange
     {
         $dateRange = new Google_Service_AnalyticsReporting_DateRange();
         $dateRange->setStartDate($startDate->format("Y-m-d"));

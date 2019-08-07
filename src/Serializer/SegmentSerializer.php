@@ -14,7 +14,7 @@ use sherin\google\analytics\Segment\UserSegment;
 
 class SegmentSerializer
 {
-    public static function serialize(SegmentCollection $segmentCollection)
+    public static function deserialize(SegmentCollection $segmentCollection)
     {
         $segments = $segmentCollection->getSegments()->toArray();
         $googleSegments = [];

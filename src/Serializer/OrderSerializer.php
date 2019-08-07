@@ -12,7 +12,7 @@ class OrderSerializer
      * @param OrderCollection $orderCollection
      * @return array
      */
-    public static function serialize(OrderCollection $orderCollection): array
+    public static function deserialize(OrderCollection $orderCollection): array
     {
         $orders = $orderCollection->getOrders()->toArray();
         $googleOrders = [];

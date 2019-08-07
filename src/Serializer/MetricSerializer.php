@@ -11,7 +11,7 @@ class MetricSerializer
      * @param MetricCollection $metricCollection
      * @return array
      */
-    public static function serialize(MetricCollection $metricCollection): array
+    public static function deserialize(MetricCollection $metricCollection): array
     {
         $metrics = $metricCollection->getMetrics()->toArray();
         $googleMetrics = [];

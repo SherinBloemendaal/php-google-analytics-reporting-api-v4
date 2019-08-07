@@ -11,7 +11,7 @@ class DimensionSerializer
      * @param DimensionCollection $dimensionCollection
      * @return array
      */
-    public static function serialize(DimensionCollection $dimensionCollection): array
+    public static function deserialize(DimensionCollection $dimensionCollection): array
     {
         $dimensions = $dimensionCollection->getDimensions()->toArray();
         $googleDimensions = [];

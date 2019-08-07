@@ -3,7 +3,6 @@
 
 namespace sherin\google\analytics\Response;
 
-
 class Analytic
 {
     private $dimensions;
@@ -51,6 +50,4 @@ class Analytic
     {
         $this->metrics = $metrics;
     }
-    
-    
 }

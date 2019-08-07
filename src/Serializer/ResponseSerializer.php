@@ -5,17 +5,16 @@ namespace sherin\google\analytics\Serializer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Google_Service_AnalyticsReporting_Report;
-use sherin\google\analytics\Dimension\Dimension;
-use sherin\google\analytics\Metric\MetricCollection;
 use sherin\google\analytics\Response\Analytic;
 use sherin\google\analytics\Response\Response;
 use DateTime;
+use sherin\google\analytics\Response\ResponseCollection;
 
 class ResponseSerializer
 {
-    public static function serialize(array $responses): ArrayCollection
+    public static function deserialize(array $responses): ResponseCollection
     {
-        $batchResults = new ArrayCollection();
+        $batchResults = new ResponseCollection();
         /**
          * @var Google_Service_AnalyticsReporting_Report $response
          */
@@ -35,7 +34,7 @@ class ResponseSerializer
 
                 if (!is_null($dimensions) && !is_null($dimensionHeaders)) {
                     for ($i = 0; $i < count($dimensionHeaders) && $i < count($dimensions); $i++) {
-                        switch($dimensionHeaders[$i]) {
+                        switch ($dimensionHeaders[$i]) {
                             case "ga:date":
                                 $dimensionCollection->set($dimensionHeaders[$i], self::serializeGoogleDate($dimensions[$i])->format(DateTime::ATOM));
                                 break;
@@ -43,7 +42,6 @@ class ResponseSerializer
                                 $dimensionCollection->set($dimensionHeaders[$i], $dimensions[$i]);
 
                         }
-
                     }
                 }
 
@@ -60,7 +58,7 @@ class ResponseSerializer
                 $analytic->setMetrics($metricCollection);
                 $analyticsCollection->addAnalytic($analytic);
             }
-            $batchResults->add($analyticsCollection);
+            $batchResults->addResponse($analyticsCollection);
         }
         return $batchResults;
     }
