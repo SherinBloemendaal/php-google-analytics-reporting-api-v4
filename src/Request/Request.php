@@ -2,6 +2,7 @@
 
 namespace sherin\google\analytics\Request;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Google_Service_AnalyticsReporting_GetReportsRequest;
 use sherin\google\analytics\Analytics;
 use sherin\google\analytics\Query\Query;
@@ -24,7 +25,7 @@ class Request
         $this->analytics = $analytics;
     }
 
-    public function send(): Response
+    public function send(): ArrayCollection
     {
         $request = new Google_Service_AnalyticsReporting_GetReportsRequest();
         //Again, they have set wrong @param annotation

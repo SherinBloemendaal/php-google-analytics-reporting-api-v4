@@ -3,14 +3,19 @@
 
 namespace sherin\google\analytics\Serializer;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Google_Service_AnalyticsReporting_Report;
+use sherin\google\analytics\Dimension\Dimension;
+use sherin\google\analytics\Metric\MetricCollection;
+use sherin\google\analytics\Response\Analytic;
 use sherin\google\analytics\Response\Response;
+use DateTime;
 
 class ResponseSerializer
 {
-    public static function serialize(array $responses)
+    public static function serialize(array $responses): ArrayCollection
     {
-        $parsedResponses = [];
+        $batchResults = new ArrayCollection();
         /**
          * @var Google_Service_AnalyticsReporting_Report $response
          */
@@ -20,40 +25,51 @@ class ResponseSerializer
             $metricHeaders = $header->getMetricHeader()->getMetricHeaderEntries();
             $rows = $response->getData()->getRows();
 
-            $dimensionsMetrics = [];
+            $analyticsCollection = new Response();
             foreach ($rows as $row) {
                 $dimensions = $row->getDimensions();
                 $metrics = $row->getMetrics();
 
-                $dimensionMetric = [];
+                $dimensionCollection = new ArrayCollection();
+                $metricCollection = new ArrayCollection();
+
                 if (!is_null($dimensions) && !is_null($dimensionHeaders)) {
                     for ($i = 0; $i < count($dimensionHeaders) && $i < count($dimensions); $i++) {
-                        $dimensionMetric["dimensions"][] = [
-                            "name" => $dimensionHeaders[$i],
-                            "data" => $dimensions[$i]
-                        ];
+                        switch($dimensionHeaders[$i]) {
+                            case "ga:date":
+                                $dimensionCollection->set($dimensionHeaders[$i], self::serializeGoogleDate($dimensions[$i])->format(DateTime::ATOM));
+                                break;
+                            default:
+                                $dimensionCollection->set($dimensionHeaders[$i], $dimensions[$i]);
+
+                        }
+
                     }
                 }
 
                 foreach ($metrics as $metric) {
-                    $values = $metric->getValues();
-                    foreach ($values as $key => $value) {
-                        $entry = $metricHeaders[$key];
-                        //KEY VALUE
-                        $dimensionMetric["metrics"][$entry->getName()] = $values[$key];
-                        //NOT KEY VALUE
-//                        $dimensionMetric["metrics"][] = [
-//                            "name" => $entry->getName(),
-//                            "data" => $values[$key]
-//                        ];
+                    $metricValues = $metric->getValues();
+                    foreach ($metricValues as $metricName => $metricData) {
+                        $metricHeader = $metricHeaders[$metricName];
+                        $metricCollection->set($metricHeader->getName(), $metricValues[$metricName]);
                     }
                 }
-                if (!empty($dimensionMetric)) {
-                    $dimensionsMetrics[] = $dimensionMetric;
-                }
+
+                $analytic = new Analytic($dimensionCollection, $metricCollection);
+                $analytic->setDimensions($dimensionCollection);
+                $analytic->setMetrics($metricCollection);
+                $analyticsCollection->addAnalytic($analytic);
             }
-            $parsedResponses[] = $dimensionsMetrics;
+            $batchResults->add($analyticsCollection);
         }
-        return $parsedResponses;
+        return $batchResults;
+    }
+
+    private static function serializeGoogleDate(string $googleDate): DateTime
+    {
+        $year = substr($googleDate, 0, 4);
+        $month = substr($googleDate, 4, 2);
+        $day = substr($googleDate, 6, 2);
+        return new DateTime("{$year}/{$month}/{$day}");
     }
 }
