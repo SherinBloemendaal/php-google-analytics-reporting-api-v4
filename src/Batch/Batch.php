@@ -5,6 +5,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use sherin\google\analytics\Analytics;
 use sherin\google\analytics\Request\Request;
 use sherin\google\analytics\Serializer\BatchRequestSerializer;
+use sherin\google\analytics\Serializer\ResponseSerializer;
 
 class Batch
 {
@@ -21,17 +22,18 @@ class Batch
         $this->analytics = $analytics;
     }
 
-    public function send(): array
+    public function send(): ArrayCollection
     {
         $requestChunk = array_chunk($this->requests->toArray(), 5);
 
         $responses = [];
         foreach ($requestChunk as $chunk) {
             $response = $this->analytics->getAnalyticsReporting()->reports->batchGet(BatchRequestSerializer::serialize($chunk));
-            array_merge($responses, $response);
+            /* @phan-suppress-next-line PhanTypeMismatchArgumentInternal */ //Because google returns a array
+            array_merge($responses, ResponseSerializer::serialize($response->getReports()));
         }
 
-        return $responses;
+        return new ArrayCollection($responses);
     }
 
     public function addRequest(Request $request)

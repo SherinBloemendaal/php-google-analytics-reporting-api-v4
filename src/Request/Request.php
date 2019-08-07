@@ -5,6 +5,8 @@ namespace sherin\google\analytics\Request;
 use Google_Service_AnalyticsReporting_GetReportsRequest;
 use sherin\google\analytics\Analytics;
 use sherin\google\analytics\Query\Query;
+use sherin\google\analytics\Response\Response;
+use sherin\google\analytics\Serializer\ResponseSerializer;
 
 class Request
 {
@@ -22,13 +24,14 @@ class Request
         $this->analytics = $analytics;
     }
 
-    public function send()
+    public function send(): Response
     {
         $request = new Google_Service_AnalyticsReporting_GetReportsRequest();
         //Again, they have set wrong @param annotation
         /* @phan-suppress-next-line PhanTypeMismatchArgument */
         $request->setReportRequests([$this->query->getGoogleQuery()]);
-        return $this->analytics->getAnalyticsReporting()->reports->batchGet($request);
+        $response = $this->analytics->getAnalyticsReporting()->reports->batchGet($request);
+        return ResponseSerializer::serialize($response->getReports());
     }
 
     /**
