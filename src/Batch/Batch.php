@@ -28,7 +28,7 @@ class Batch
         $responses = [];
         foreach ($requestChunk as $chunk) {
             $response = $this->analytics->getAnalyticsReporting()->reports->batchGet(BatchRequestSerializer::serialize($chunk));
-            array_merge($responses,  $response);
+            array_merge($responses, $response);
         }
 
         return $responses;
