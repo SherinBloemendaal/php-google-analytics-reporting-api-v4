@@ -2,13 +2,13 @@
 
 ## Table of Contents
 
- - Installation
- - Usage
- - Limitations
- - Testing
- - Support
- - License
- - FAQ
+ - [Installation](#installation)
+ - [Usage](#usage)
+ - [Limitations](#limitations)
+ - [Testing](#testing)
+ - [Support](#support)
+ - [License](#license)
+ - [FAQ](#faq)
 
 ## Installation
 **Requirements:** 
