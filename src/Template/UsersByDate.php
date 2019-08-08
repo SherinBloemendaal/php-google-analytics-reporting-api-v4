@@ -8,9 +8,9 @@ use sherin\google\analytics\Query\QueryBuilder;
 
 class UsersByDate
 {
-    public static function getQueryBuilder(): QueryBuilder
+    public static function getQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
-        $queryBuilder = new QueryBuilder();
+        $queryBuilder = new QueryBuilder($queryBuilder);
         $queryBuilder
             ->addDimension(new Dimension("ga:date"))
             ->addMetric(new Metric("ga:users"));

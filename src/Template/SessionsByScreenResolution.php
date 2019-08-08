@@ -10,9 +10,9 @@ use sherin\google\analytics\Query\QueryBuilder;
 
 class SessionsByScreenResolution
 {
-    public static function getQueryBuilder(): QueryBuilder
+    public static function getQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
-        $queryBuilder = new QueryBuilder();
+        $queryBuilder = new QueryBuilder($queryBuilder);
         $queryBuilder
             ->addDimension(new Dimension("ga:browserSize"))
             ->addMetric(new Metric("ga:sessions"))

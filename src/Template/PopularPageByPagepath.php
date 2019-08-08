@@ -11,9 +11,9 @@ use sherin\google\analytics\Query\QueryBuilder;
 
 class PopularPageByPagepath
 {
-    public static function getQueryBuilder(): QueryBuilder
+    public static function getQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
-        $queryBuilder = new QueryBuilder();
+        $queryBuilder = new QueryBuilder($queryBuilder);
         $queryBuilder
             ->addDimension(new Dimension("ga:pagePathLevel3"))
             ->addMetric(new Metric("ga:uniquePageViews"))

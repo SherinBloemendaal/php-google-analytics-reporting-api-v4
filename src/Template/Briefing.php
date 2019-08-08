@@ -2,15 +2,14 @@
 
 namespace sherin\google\analytics\Template;
 
-use sherin\google\analytics\Dimension\Dimension;
 use sherin\google\analytics\Metric\Metric;
 use sherin\google\analytics\Query\QueryBuilder;
 
 class Briefing
 {
-    public static function getQueryBuilder(): QueryBuilder
+    public static function getQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
-        $queryBuilder = new QueryBuilder();
+        $queryBuilder = new QueryBuilder($queryBuilder);
         $queryBuilder
             ->addMetric(new Metric("ga:sessions"))
             ->addMetric(new Metric("ga:users"))
