@@ -20,7 +20,8 @@ class SegmentSerializer
         $googleSegments = [];
         /** @var SessionSegment|UserSegment $segment */
         foreach ($segments as $segment) {
-            $dimensionFilters = $segment->getDimensionFilters()->getFilters()->toArray();
+            $dimensionFilterCollection = $segment->getDimensionFilters();
+            $dimensionFilters = $dimensionFilterCollection->getFilters()->toArray();
             $metricFilters = $segment->getMetricsFilters()->getFilters()->toArray();
 
             $googleDimensionFilters = [];
@@ -33,7 +34,7 @@ class SegmentSerializer
                 $segmentFilterClause = new \Google_Service_AnalyticsReporting_SegmentFilterClause();
                 $segmentFilterClause->setDimensionFilter($googleDimensionFilter);
 
-                if ($segmentCollection->getOperator() === SegmentCollection::AND) {
+                if ($dimensionFilterCollection->getOperator() === SegmentCollection::AND) {
                     $orFiltersForSegment = new Google_Service_AnalyticsReporting_OrFiltersForSegment();
                     // Suppress because wrong @param in the Google api
                     /* @phan-suppress-next-line PhanTypeMismatchArgument */
@@ -42,7 +43,7 @@ class SegmentSerializer
                     $googleDimensionFilters[] = $orFiltersForSegment;
                 }
 
-                if ($segmentCollection->getOperator() === SegmentCollection::OR) {
+                if ($dimensionFilterCollection->getOperator() === SegmentCollection::OR) {
                     $googleDimensionFilters[] = $segmentFilterClause;
                 }
             }
