@@ -30,8 +30,8 @@ class SegmentSerializer
             foreach ($dimensionFilters as $dimensionFilter) {
                 $googleDimensionFilter = new \Google_Service_AnalyticsReporting_SegmentDimensionFilter();
                 $googleDimensionFilter->setDimensionName($dimensionFilter->getKey());
-                $googleDimensionFilter->setOperator($dimensionFilter->getOperator());
-                $googleDimensionFilter->setExpressions($dimensionFilter->getValue());
+                $googleDimensionFilter->setOperator(static::convertToSegmentOperator($dimensionFilter->getOperator()));
+                $googleDimensionFilter->setExpressions([(string)$dimensionFilter->getValue()]);
 
                 $segmentFilterClause = new \Google_Service_AnalyticsReporting_SegmentFilterClause();
                 $segmentFilterClause->setDimensionFilter($googleDimensionFilter);
@@ -101,5 +101,23 @@ class SegmentSerializer
             $googleSegments[] = $segment;
         }
         return $googleSegments;
+    }
+
+    private static function convertToSegmentOperator($operator)
+    {
+        $conversion = [
+            "==" => "EXACT",
+            "<>" => "NUMERIC_BETWEEN",
+            "<" => "NUMERIC_LESS_THAN",
+            ">" => "NUMERIC_GREATER_THAN",
+            "[]" => "IN_LIST",
+            "=@" => "PARTIAL",
+            "=~" => "REGEXP",
+            "" => "OPERATOR_UNSPECIFIED",
+        ];
+        if (!array_key_exists($operator, $conversion)) {
+            throw new \Exception("Impossible filter for segment. Used {$operator} but this is not supported by google.");
+        }
+        return $conversion[$operator];
     }
 }
