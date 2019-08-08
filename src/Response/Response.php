@@ -24,7 +24,7 @@ class Response
     /**
      * @return ArrayCollection
      */
-    public function getAnalytic(): ArrayCollection
+    public function getAnalytics(): ArrayCollection
     {
         return $this->analytics;
     }
@@ -32,7 +32,7 @@ class Response
     /**
      * @param ArrayCollection $analytics
      */
-    public function setAnalytic(ArrayCollection $analytics)
+    public function setAnalytics(ArrayCollection $analytics)
     {
         $this->analytics = $analytics;
     }

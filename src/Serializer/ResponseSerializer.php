@@ -4,7 +4,6 @@
 namespace sherin\google\analytics\Serializer;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Google_Service_AnalyticsReporting_Report;
 use sherin\google\analytics\Response\Analytic;
 use sherin\google\analytics\Response\Response;
 use DateTime;

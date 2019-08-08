@@ -46,18 +46,19 @@ class ResponseCollection
         /* @var Response $response */
         foreach ($responses as $response) {
             $analyticsArray = [];
-            /* @var Analytic $analytics */
-            $analytics = $response->getAnalytic()->toArray();
+            $analytics = $response->getAnalytics()->toArray();
+            /* @var Analytic $analytic */
             foreach ($analytics as $analytic) {
-                $dimensions = $analytics->getDimensions();
-                $metrics = $analytics->getMetrics();
-                $analytic = [
+                $dimensions = $analytic->getDimensions();
+                $metrics = $analytic->getMetrics();
+                $analyticArray = [
                     "dimensions" => $dimensions,
                     "metrics" => $metrics
                 ];
-                $analyticsArray[] = $analytic;
+                $analyticsArray[] = $analyticArray;
             }
             $responsesArray[] = $analytics;
         }
+        return $responsesArray;
     }
 }

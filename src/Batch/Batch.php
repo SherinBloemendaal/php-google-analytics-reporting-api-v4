@@ -35,7 +35,9 @@ class Batch
             array_merge($responses, ResponseSerializer::deserialize($response->getReports()));
         }
 
-        return new ResponseCollection(new ArrayCollection($responses));
+        $responseCollection = new ResponseCollection();
+        $responseCollection->setResponses(new ArrayCollection($responses));
+        return $responseCollection;
     }
 
     public function addRequest(Request $request)
