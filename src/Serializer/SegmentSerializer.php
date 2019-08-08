@@ -31,7 +31,7 @@ class SegmentSerializer
                 $googleDimensionFilter->setExpressions($dimensionFilter->getValue());
 
                 $segmentFilterClause = new \Google_Service_AnalyticsReporting_SegmentFilterClause();
-                $segmentFilterClause->setDimensionFilter($dimensionFilter);
+                $segmentFilterClause->setDimensionFilter($googleDimensionFilter);
 
                 if ($segmentCollection->getOperator() === SegmentCollection::AND) {
                     $orFiltersForSegment = new Google_Service_AnalyticsReporting_OrFiltersForSegment();
