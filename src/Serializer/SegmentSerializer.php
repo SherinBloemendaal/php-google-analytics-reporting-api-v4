@@ -5,6 +5,7 @@ namespace sherin\google\analytics\Serializer;
 
 use Google_Service_AnalyticsReporting_DynamicSegment;
 use Google_Service_AnalyticsReporting_OrFiltersForSegment;
+use Google_Service_AnalyticsReporting_Segment;
 use Google_Service_AnalyticsReporting_SegmentDefinition;
 use Google_Service_AnalyticsReporting_SegmentFilter;
 use Google_Service_AnalyticsReporting_SimpleSegment;
@@ -24,7 +25,8 @@ class SegmentSerializer
             $dimensionFilters = $dimensionFilterCollection->getFilters()->toArray();
             $metricFilters = $segment->getMetricsFilters()->getFilters()->toArray();
 
-            $googleDimensionFilters = [];
+            $orFilters = [];
+            $filterClauses = [];
             foreach ($dimensionFilters as $dimensionFilter) {
                 $googleDimensionFilter = new \Google_Service_AnalyticsReporting_SegmentDimensionFilter();
                 $googleDimensionFilter->setDimensionName($dimensionFilter->getKey());
@@ -40,11 +42,11 @@ class SegmentSerializer
                     /* @phan-suppress-next-line PhanTypeMismatchArgument */
                     $orFiltersForSegment->setSegmentFilterClauses([$segmentFilterClause]);
 
-                    $googleDimensionFilters[] = $orFiltersForSegment;
+                    $orFilters[] = $orFiltersForSegment;
                 }
 
                 if ($dimensionFilterCollection->getOperator() === SegmentCollection::OR) {
-                    $googleDimensionFilters[] = $segmentFilterClause;
+                    $filterClauses[] = $segmentFilterClause;
                 }
             }
 
@@ -52,14 +54,21 @@ class SegmentSerializer
                 $orFiltersForSegment = new Google_Service_AnalyticsReporting_OrFiltersForSegment();
                 // Suppress because wrong @param in the Google api
                 /* @phan-suppress-next-line PhanTypeMismatchArgument */
-                $orFiltersForSegment->setSegmentFilterClauses($googleDimensionFilters);
-            }
+                $orFiltersForSegment->setSegmentFilterClauses($filterClauses);
 
-            // Create the Simple Segment.
-            $simpleSegment = new Google_Service_AnalyticsReporting_SimpleSegment();
-            // Suppress because wrong @param in the Google api
-            /* @phan-suppress-next-line PhanTypeMismatchArgument */
-            $simpleSegment->setOrFiltersForSegment($googleDimensionFilters);
+                // Create the Simple Segment.
+                $simpleSegment = new Google_Service_AnalyticsReporting_SimpleSegment();
+                // Suppress because wrong @param in the Google api
+                /* @phan-suppress-next-line PhanTypeMismatchArgument */
+                $simpleSegment->setOrFiltersForSegment([$orFiltersForSegment]);
+
+            } else {
+                // Create the Simple Segment.
+                $simpleSegment = new Google_Service_AnalyticsReporting_SimpleSegment();
+                // Suppress because wrong @param in the Google api
+                /* @phan-suppress-next-line PhanTypeMismatchArgument */
+                $simpleSegment->setOrFiltersForSegment($orFilters);
+            }
 
             // Create the Segment Filters.
             $segmentFilter = new Google_Service_AnalyticsReporting_SegmentFilter();
@@ -77,14 +86,19 @@ class SegmentSerializer
 
             if ($segment instanceof SessionSegment) {
                 $dynamicSegment->setSessionSegment($segmentDefinition);
-                $dynamicSegment->setName("session_segment");
+                $dynamicSegment->setName("sessions");
             }
 
             if ($segment instanceof UserSegment) {
                 $dynamicSegment->setUserSegment($segmentDefinition);
-                $dynamicSegment->setName("user_segment");
+                $dynamicSegment->setName("users");
             }
-            $googleSegments[] = $dynamicSegment;
+
+            // Create the Segments object.
+            $segment = new Google_Service_AnalyticsReporting_Segment();
+            $segment->setDynamicSegment($dynamicSegment);
+
+            $googleSegments[] = $segment;
         }
         return $googleSegments;
     }
