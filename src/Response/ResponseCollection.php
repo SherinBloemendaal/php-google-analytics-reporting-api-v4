@@ -39,7 +39,7 @@ class ResponseCollection
         $this->responses = $responses;
     }
 
-    public function toJson()
+    public function toArray()
     {
         $responsesArray = [];
         $responses = $this->responses->toArray();
