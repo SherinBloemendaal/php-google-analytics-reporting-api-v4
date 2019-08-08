@@ -48,28 +48,37 @@ class QueryBuilder
      */
     public function __construct(QueryBuilder $queryBuilder = null, $inheritFully = false)
     {
+
         if (!is_null($queryBuilder)) {
             $this->setViewId($queryBuilder->getViewId());
             $this->setDateRange($queryBuilder->getStartDate(), $queryBuilder->getEndDate());
 
             if ($inheritFully) {
-                $this->setMetrics($queryBuilder->getMetrics());
-                $this->setDimensions($queryBuilder->getDimensions());
-                $this->setDimensionFilters($queryBuilder->getDimensionFilters());
-                $this->setMetricFilters($queryBuilder->getMetricFilters());
-                $this->setOrderBys($queryBuilder->getOrderBys());
-                $this->setSegments($queryBuilder->getSegments());
-                $this->setIncludeEmptyRows($queryBuilder->isIncludeEmptyRows());
-                $this->setMaxResults($queryBuilder->getMaxResults());
+                $this->metrics = clone($queryBuilder->getMetrics());
+                $this->dimensions = $queryBuilder->getDimensions();
+                $this->dimensionFilters = $queryBuilder->getDimensionFilters();
+                $this->metricFilters = $queryBuilder->getMetricFilters();
+                $this->orderBys = $queryBuilder->getOrderBys();
+                $this->segments = $queryBuilder->getSegments();
+                $this->includeEmptyRows = $queryBuilder->isIncludeEmptyRows();
+                $this->maxResults = $queryBuilder->getMaxResults();
+//                dd(spl_object_hash($queryBuilder->getMetrics()), spl_object_hash($this->getMetrics()));
+            } else {
+                $this->metrics = new MetricCollection();
+                $this->dimensions = new DimensionCollection();
+                $this->orderBys = new OrderCollection();
+                $this->segments = new SegmentCollection();
+                $this->dimensionFilters = new DimensionFilterCollection();
+                $this->metricFilters = new MetricFilterCollection();
             }
+        } else {
+            $this->metrics = new MetricCollection();
+            $this->dimensions = new DimensionCollection();
+            $this->orderBys = new OrderCollection();
+            $this->segments = new SegmentCollection();
+            $this->dimensionFilters = new DimensionFilterCollection();
+            $this->metricFilters = new MetricFilterCollection();
         }
-
-        $this->metrics = new MetricCollection();
-        $this->dimensions = new DimensionCollection();
-        $this->orderBys = new OrderCollection();
-        $this->segments = new SegmentCollection();
-        $this->dimensionFilters = new DimensionFilterCollection();
-        $this->metricFilters = new MetricFilterCollection();
     }
 
     public function addMetric(Metric $metric)

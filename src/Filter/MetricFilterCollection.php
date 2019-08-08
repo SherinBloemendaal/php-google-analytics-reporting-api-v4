@@ -19,6 +19,11 @@ class MetricFilterCollection
         $this->operator = self:: AND;
     }
 
+    public function __clone()
+    {
+        $this->filters = clone($this->filters);
+    }
+
     public function addFilter(MetricFilter $filter)
     {
         $this->filters->add($filter);

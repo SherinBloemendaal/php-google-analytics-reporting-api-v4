@@ -14,6 +14,11 @@ class OrderCollection
         $this->orders = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        $this->orders = clone($this->orders);
+    }
+
     public function addOrder(Order $metric)
     {
         $this->orders->add($metric);

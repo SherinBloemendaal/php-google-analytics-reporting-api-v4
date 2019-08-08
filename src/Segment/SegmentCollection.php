@@ -19,6 +19,11 @@ class SegmentCollection
         $this->operator = self::AND;
     }
 
+    public function __clone()
+    {
+        $this->segments = clone($this->segments()) ;
+    }
+
     public function addSegment($segment)
     {
         $this->segments->add($segment);

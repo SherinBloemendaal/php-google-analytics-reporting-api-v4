@@ -17,6 +17,11 @@ class ResponseCollection
         $this->responses = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        $this->responses = clone($this->responses);
+    }
+
     public function addResponse(Response $response)
     {
         $this->responses->add($response);

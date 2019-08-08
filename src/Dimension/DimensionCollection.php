@@ -13,6 +13,10 @@ class DimensionCollection
     {
         $this->dimensions = new ArrayCollection();
     }
+    public function __clone()
+    {
+        $this->dimensions = clone($this->dimensions);
+    }
 
     public function addDimension(Dimension $dimension)
     {

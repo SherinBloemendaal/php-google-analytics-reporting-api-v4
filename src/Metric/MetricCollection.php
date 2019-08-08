@@ -14,6 +14,11 @@ class MetricCollection
         $this->metrics = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        $this->metrics = clone($this->metrics);
+    }
+
     public function addMetric(Metric $metric)
     {
         $this->metrics->add($metric);

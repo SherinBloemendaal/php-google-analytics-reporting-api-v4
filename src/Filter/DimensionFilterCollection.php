@@ -19,6 +19,11 @@ class DimensionFilterCollection
         $this->operator = self:: AND;
     }
 
+    public function __clone()
+    {
+        $this->filters = clone($this->filters);
+    }
+
     public function addFilter(DimensionFilter $filter)
     {
         $this->filters->add($filter);

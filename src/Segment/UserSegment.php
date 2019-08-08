@@ -21,6 +21,12 @@ class UserSegment
         $this->dimensionFilters = new DimensionFilterCollection();
         $this->metricsFilters = new MetricFilterCollection();
     }
+    
+    public function __clone()
+    {
+        $this->dimensionFilters = clone($this->dimensionFilters);
+        $this->metricsFilters = clone($this->metricsFilters);
+    }
 
     public function addDimensionFilter(DimensionFilter $dimensionFilter)
     {

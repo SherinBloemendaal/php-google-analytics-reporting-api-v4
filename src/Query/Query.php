@@ -31,6 +31,11 @@ class Query
         return $request->send();
     }
 
+    public function getRequest(Analytics $analytics)
+    {
+        return new Request($analytics, $this);
+    }
+
     /**
      * @return Google_Service_AnalyticsReporting_ReportRequest
      */

@@ -31,9 +31,9 @@ class Batch
         $responses = [];
         foreach ($requestChunk as $chunk) {
             $response = $this->analytics->getAnalyticsReporting()->reports->batchGet(BatchRequestSerializer::deserialize($chunk));
-            $responseArray = ResponseSerializer::deserialize($response->getReports())->toArray();
+            $responseDeserialized = ResponseSerializer::deserialize($response->getReports());
             /* @phan-suppress-next-line PhanTypeMismatchArgumentInternal */ //Because google returns a array
-            $responses = array_merge($responses, $responseArray);
+            $responses = array_merge($responses, $responseDeserialized->getResponses()->toArray());
         }
         $responseCollection = new ResponseCollection();
         $responseCollection->setResponses(new ArrayCollection($responses));
