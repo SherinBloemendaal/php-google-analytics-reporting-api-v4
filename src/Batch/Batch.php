@@ -31,10 +31,10 @@ class Batch
         $responses = [];
         foreach ($requestChunk as $chunk) {
             $response = $this->analytics->getAnalyticsReporting()->reports->batchGet(BatchRequestSerializer::deserialize($chunk));
+            $responseArray = ResponseSerializer::deserialize($response->getReports())->toArray();
             /* @phan-suppress-next-line PhanTypeMismatchArgumentInternal */ //Because google returns a array
-            array_merge($responses, ResponseSerializer::deserialize($response->getReports()));
+            $responses = array_merge($responses, $responseArray);
         }
-
         $responseCollection = new ResponseCollection();
         $responseCollection->setResponses(new ArrayCollection($responses));
         return $responseCollection;
