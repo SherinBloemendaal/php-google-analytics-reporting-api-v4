@@ -16,12 +16,12 @@ class SegmentCollection
     public function __construct()
     {
         $this->segments = new ArrayCollection();
+        $this->operator = self::AND;
     }
 
     public function addSegment($segment)
     {
         $this->segments->add($segment);
-        $this->operator = self::AND;
     }
 
     /**
