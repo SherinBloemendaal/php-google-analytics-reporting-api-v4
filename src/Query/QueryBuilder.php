@@ -43,9 +43,27 @@ class QueryBuilder
 
     /**
      * QueryBuilder constructor.
+     * @param QueryBuilder|null $queryBuilder
+     * @param bool $inheritFully
      */
-    public function __construct()
+    public function __construct(QueryBuilder $queryBuilder = null, $inheritFully = false)
     {
+        if (!is_null($queryBuilder)) {
+            $this->setViewId($queryBuilder->getViewId());
+            $this->setDateRange($queryBuilder->getStartDate(), $queryBuilder->getEndDate());
+
+            if ($inheritFully) {
+                $this->setMetrics($queryBuilder->getMetrics());
+                $this->setDimensions($queryBuilder->getDimensions());
+                $this->setDimensionFilters($queryBuilder->getDimensionFilters());
+                $this->setMetricFilters($queryBuilder->getMetricFilters());
+                $this->setOrderBys($queryBuilder->getOrderBys());
+                $this->setSegments($queryBuilder->getSegments());
+                $this->setIncludeEmptyRows($queryBuilder->isIncludeEmptyRows());
+                $this->setMaxResults($queryBuilder->getMaxResults());
+            }
+        }
+
         $this->metrics = new MetricCollection();
         $this->dimensions = new DimensionCollection();
         $this->orderBys = new OrderCollection();
@@ -149,6 +167,61 @@ class QueryBuilder
     {
         $this->includeEmptyRows = $includeEmptyRows;
         return $this;
+    }
+
+    public function getViewId(): int
+    {
+        return $this->viewId;
+    }
+
+    public function getStartDate(): DateTime
+    {
+        return $this->startDate;
+    }
+
+    public function getEndDate(): DateTime
+    {
+        return $this->endDate;
+    }
+
+    public function getMetrics(): MetricCollection
+    {
+        return $this->metrics;
+    }
+
+    public function getDimensions(): DimensionCollection
+    {
+        return $this->dimensions;
+    }
+
+    public function getDimensionFilters(): DimensionFilterCollection
+    {
+        return $this->dimensionFilters;
+    }
+
+    public function getMetricFilters(): MetricFilterCollection
+    {
+        return $this->metricFilters;
+    }
+
+    public function getOrderBys(): OrderCollection
+    {
+        return $this->orderBys;
+    }
+
+    public function getSegments(): SegmentCollection
+    {
+        return $this->segments;
+    }
+
+    public function getMaxResults(): int
+    {
+        return $this->maxResults;
+    }
+
+    public function isIncludeEmptyRows(): bool
+    {
+        return $this->includeEmptyRows;
     }
 
     public function getQuery()
