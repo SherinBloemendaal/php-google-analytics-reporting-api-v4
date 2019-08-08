@@ -1,5 +1,6 @@
 <?php
 
+namespace sherin\google\analytics\Template;
 
 use sherin\google\analytics\Dimension\Dimension;
 use sherin\google\analytics\Metric\Metric;

@@ -61,7 +61,6 @@ class SegmentSerializer
                 // Suppress because wrong @param in the Google api
                 /* @phan-suppress-next-line PhanTypeMismatchArgument */
                 $simpleSegment->setOrFiltersForSegment([$orFiltersForSegment]);
-
             } else {
                 // Create the Simple Segment.
                 $simpleSegment = new Google_Service_AnalyticsReporting_SimpleSegment();
