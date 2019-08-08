@@ -52,12 +52,12 @@ class ResponseCollection
                 $dimensions = $analytic->getDimensions();
                 $metrics = $analytic->getMetrics();
                 $analyticArray = [
-                    "dimensions" => $dimensions,
-                    "metrics" => $metrics
+                    "dimensions" => $dimensions->toArray(),
+                    "metrics" => $metrics->toArray()
                 ];
                 $analyticsArray[] = $analyticArray;
             }
-            $responsesArray[] = $analytics;
+            $responsesArray[] = $analyticsArray;
         }
         return $responsesArray;
     }
