@@ -19,7 +19,10 @@ class DimensionFilterSerializer
             $googleFilter = new \Google_Service_AnalyticsReporting_DimensionFilter();
             $googleFilter->setDimensionName($filter->getKey());
             $googleFilter->setOperator(static::convertToSegmentOperator($filter->getOperator()));
-            $googleFilter->setExpressions($filter->getValue());
+            if ($filter->getOperator()[0] === "!") {
+                $googleFilter->setNot(true);
+            }
+            $googleFilter->setExpressions([(string)$filter->getValue()]);
             $googleFilters[] = $googleFilter;
         }
 
@@ -34,6 +37,7 @@ class DimensionFilterSerializer
     {
         $conversion = [
             "==" => "EXACT",
+            "!=" => "EXACT",
             "<>" => "NUMERIC_BETWEEN",
             "<" => "NUMERIC_LESS_THAN",
             ">" => "NUMERIC_GREATER_THAN",
@@ -43,7 +47,7 @@ class DimensionFilterSerializer
             "" => "OPERATOR_UNSPECIFIED",
         ];
         if (!array_key_exists($operator, $conversion)) {
-            throw new \Exception("Impossible filter for segment. Used {$operator} but this is not supported by google.");
+            throw new \Exception("Impossible filter for dimension. Used {$operator} but this is not supported by google.");
         }
         return $conversion[$operator];
     }

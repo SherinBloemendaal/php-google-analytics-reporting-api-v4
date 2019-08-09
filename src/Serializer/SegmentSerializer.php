@@ -36,6 +36,10 @@ class SegmentSerializer
                 $segmentFilterClause = new \Google_Service_AnalyticsReporting_SegmentFilterClause();
                 $segmentFilterClause->setDimensionFilter($googleDimensionFilter);
 
+                if ($dimensionFilter->getOperator()[0] === "!") {
+                    $segmentFilterClause->setNot(true);
+                }
+
                 if ($dimensionFilterCollection->getOperator() === SegmentCollection::AND) {
                     $orFiltersForSegment = new Google_Service_AnalyticsReporting_OrFiltersForSegment();
                     // Suppress because wrong @param in the Google api
@@ -106,6 +110,7 @@ class SegmentSerializer
     {
         $conversion = [
             "==" => "EXACT",
+            "!=" => "EXACT",
             "<>" => "NUMERIC_BETWEEN",
             "<" => "NUMERIC_LESS_THAN",
             ">" => "NUMERIC_GREATER_THAN",
