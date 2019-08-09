@@ -21,7 +21,7 @@ class SegmentCollection
 
     public function __clone()
     {
-        $this->segments = clone($this->segments()) ;
+        $this->segments = clone($this->segments) ;
     }
 
     public function addSegment($segment)

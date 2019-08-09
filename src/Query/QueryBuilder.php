@@ -48,7 +48,6 @@ class QueryBuilder
      */
     public function __construct(QueryBuilder $queryBuilder = null, $inheritFully = false)
     {
-
         if (!is_null($queryBuilder)) {
             $this->setViewId($queryBuilder->getViewId());
             $this->setDateRange($queryBuilder->getStartDate(), $queryBuilder->getEndDate());
