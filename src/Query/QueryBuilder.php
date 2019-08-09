@@ -55,11 +55,11 @@ class QueryBuilder
 
             if ($inheritFully) {
                 $this->metrics = clone($queryBuilder->getMetrics());
-                $this->dimensions = $queryBuilder->getDimensions();
-                $this->dimensionFilters = $queryBuilder->getDimensionFilters();
-                $this->metricFilters = $queryBuilder->getMetricFilters();
-                $this->orderBys = $queryBuilder->getOrderBys();
-                $this->segments = $queryBuilder->getSegments();
+                $this->dimensions = clone($queryBuilder->getDimensions());
+                $this->dimensionFilters = clone($queryBuilder->getDimensionFilters());
+                $this->metricFilters = clone($queryBuilder->getMetricFilters());
+                $this->orderBys = clone($queryBuilder->getOrderBys());
+                $this->segments = clone($queryBuilder->getSegments());
                 $this->includeEmptyRows = $queryBuilder->isIncludeEmptyRows();
                 $this->maxResults = $queryBuilder->getMaxResults();
 //                dd(spl_object_hash($queryBuilder->getMetrics()), spl_object_hash($this->getMetrics()));
@@ -247,6 +247,7 @@ class QueryBuilder
         // Suppress because wrong @param in the Google api
         /* @phan-suppress-next-line PhanTypeMismatchArgument */
         $googleQuery->setOrderBys(OrderSerializer::deserialize($this->orderBys));
+        $googleQuery->setIncludeEmptyRows($this->includeEmptyRows);
 
         if (!empty($this->dimensionFilters)) {
             $googleQuery->setDimensionFilterClauses(DimensionFilterSerializer::deserialize($this->dimensionFilters));
