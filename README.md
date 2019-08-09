@@ -1,3 +1,4 @@
+
 # PHP 7 - Google Analytics Reporting Api v4 wrapper
 
 ## Table of Contents
@@ -99,6 +100,7 @@ $analytics = new \sherin\google\analytics\Analytics($client);
 ## Limitations
 The currently limitations:
 1. This library only supports *[Service Applications](https://console.developers.google.com/iam-admin/serviceaccounts)* (aka Server to Server) currently.
+2. For now, a metric filter on a segment is not supported, only dimensions.
 ## Testing
 Testing is not added yet!
 *FYI: PHPUnit will be used for unit testing*
