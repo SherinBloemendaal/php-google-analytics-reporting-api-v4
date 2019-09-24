@@ -247,6 +247,7 @@ class QueryBuilder
         /* @phan-suppress-next-line PhanTypeMismatchArgument */
         $googleQuery->setOrderBys(OrderSerializer::deserialize($this->orderBys));
         $googleQuery->setIncludeEmptyRows($this->includeEmptyRows);
+        $googleQuery->setPageSize($this->maxResults);
 
         if (!empty($this->dimensionFilters)) {
             $googleQuery->setDimensionFilterClauses(DimensionFilterSerializer::deserialize($this->dimensionFilters));
