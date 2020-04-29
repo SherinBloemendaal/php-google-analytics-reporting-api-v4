@@ -31,7 +31,7 @@ class Request
         /* @phan-suppress-next-line PhanTypeMismatchArgument */
         $request->setReportRequests([$this->query->getGoogleQuery()]);
         $response = $this->analytics->getAnalyticsReporting()->reports->batchGet($request);
-        return ResponseSerializer::deserialize($response->getReports());
+        return ResponseSerializer::deserialize((array) $response->getReports());
     }
 
     /**
